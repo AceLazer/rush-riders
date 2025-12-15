@@ -1,21 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dyjcrljjr0tcv"]
+[gd_scene load_steps=5 format=3 uid="uid://dyjcrljjr0tcv"]
 
 [ext_resource type="PackedScene" uid="uid://cnygpebovmiob" path="res://models/texturedRiggedAxia.fbx" id="1_5wjm4"]
 [ext_resource type="Script" uid="uid://byqbkxqdyafit" path="res://models/player_3d.gd" id="1_ca1jw"]
-
-[sub_resource type="GDScript" id="GDScript_ca1jw"]
-script/source = "extends Node3D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3swsy"]
 radius = 0.20410156
@@ -29,7 +15,6 @@ script = ExtResource("1_ca1jw")
 [node name="axiaSkin" parent="." instance=ExtResource("1_5wjm4")]
 unique_name_in_owner = true
 transform = Transform3D(-0.225, 0, 1.9670125e-08, 0, 0.225, 0, -1.9670125e-08, 0, -0.225, 0, 0, 0)
-script = SubResource("GDScript_ca1jw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44780296, 0)

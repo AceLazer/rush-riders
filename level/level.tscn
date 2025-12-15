@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dca0h18ettsqv"]
 
 [node name="Level" type="Node3D"]
+transform = Transform3D(5.776387, 0, 0, 0, 6.003412, 0, 0, 0, 7.0039234, 0, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57714844, -0.4099121, -0.94799805)
