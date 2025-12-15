@@ -19,9 +19,18 @@ var _camera_input_direction := Vector2.ZERO
 var _last_movement_direction := Vector3.BACK 
 var _gravity := -30.0 # how quick we fall
 
+
+#more forgiving jumps
+@export var jump_buffer_time := 0.1  # How long to remember a jump press
+@export var coyote_time := 0.1  # How long after leaving ground you can still jump
+
+var _jump_buffer_timer := 0.0
+var _coyote_timer := 0.0
+
 #fov + boost checks
 var _is_boosting := false
 var _base_fov := 75.0 #base fov
+
 
 
 @onready var _camera_pivot: Node3D = %CameraPivot #the node the camera pivots on
@@ -78,15 +87,27 @@ func _physics_process(delta: float) -> void:
 	velocity.y = 0.0
 	velocity = velocity.move_toward(move_direction * target_speed, target_accel * delta)
 	velocity.y = y_velocity + _gravity * delta
-	
 
-	
-	
-#	if we're on the ground, let us jump
-	var is_starting_jump := Input.is_action_just_pressed("jump") and is_on_floor()
-	if is_starting_jump:
-		velocity.y += jump_impulse
 		
+		# Track time since leaving ground
+	if is_on_floor():
+		_coyote_timer = coyote_time
+	else:
+		_coyote_timer -= delta
+
+# Track jump button press
+	if Input.is_action_just_pressed("jump"):
+		_jump_buffer_timer = jump_buffer_time
+
+	if _jump_buffer_timer > 0.0:
+		_jump_buffer_timer -= delta
+
+# Jump if: button pressed recently AND (on ground OR just left ground)
+	var can_jump := _jump_buffer_timer > 0.0 and (_coyote_timer > 0.0)
+	if can_jump:
+		velocity.y = jump_impulse
+		_jump_buffer_timer = 0.0  # Use up the buffered jump
+
 	
 	
 	move_and_slide()
