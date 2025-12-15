@@ -19,11 +19,17 @@ var _camera_input_direction := Vector2.ZERO
 var _last_movement_direction := Vector3.BACK 
 var _gravity := -30.0 # how quick we fall
 
+#fov + boost checks
+var _is_boosting := false
+var _base_fov := 75.0 #base fov
+
+
 @onready var _camera_pivot: Node3D = %CameraPivot #the node the camera pivots on
 @onready var _camera: Camera3D = %Camera3D #the camera itself
 @onready var _skin: Node3D = %axiaSkin # the model/skin
 
-
+func _ready() -> void:
+	_base_fov = _camera.fov
 
 #left click to allow mouse camera, esc to exit it
 func  _input(event: InputEvent) -> void:
@@ -56,12 +62,25 @@ func _physics_process(delta: float) -> void:
 	var move_direction := forward * raw_input.y + right * raw_input.x
 	move_direction.y = 0.0 #makes it so if we look at ground, it doesn't mess with the direction of movement
 	move_direction = move_direction.normalized()
+	#	boosting
+# button held? 
+	_is_boosting = Input.is_action_pressed("boost")
+	
+	var target_speed := move_speed * boost_multiplier if _is_boosting else move_speed
+	var target_accel := boost_acceleration if _is_boosting else acceleration
+	
+	var target_fov := _base_fov + boost_fov_increase if _is_boosting else _base_fov
+	_camera.fov = lerp(_camera.fov, target_fov, 10.0 * delta)
+	
 	
 #	storing velocities
 	var y_velocity := velocity.y
 	velocity.y = 0.0
-	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
+	velocity = velocity.move_toward(move_direction * target_speed, target_accel * delta)
 	velocity.y = y_velocity + _gravity * delta
+	
+
+	
 	
 #	if we're on the ground, let us jump
 	var is_starting_jump := Input.is_action_just_pressed("jump") and is_on_floor()
