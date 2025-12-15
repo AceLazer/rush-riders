@@ -1,11 +1,18 @@
 extends CharacterBody3D
 
 @export_group("Camera")
-@export_range(0.0, 1.0) var mouseSensitivity := 0.25
+@export_range(0.0, 1.0) var mouseSensitivity := 0.1
+
+@export_group("Movement")
+@export var move_speed := 8.0
+@export var acceleration := 20.0
+
+
 
 var _camera_input_direction := Vector2.ZERO
 
-@onready var _camera_pivot: Node3D = $CameraPivot
+@onready var _camera_pivot: Node3D = %CameraPivot
+@onready var _camera: Camera3D = %Camera3D
 
 
 #left click to allow mouse camera, esc to exit it
