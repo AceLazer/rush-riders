@@ -13,6 +13,7 @@ height = 0.96313477
 script = ExtResource("1_ca1jw")
 
 [node name="axiaSkin" parent="." instance=ExtResource("1_5wjm4")]
+unique_name_in_owner = true
 transform = Transform3D(-0.225, 0, 1.9670125e-08, 0, 0.225, 0, -1.9670125e-08, 0, -0.225, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

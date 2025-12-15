@@ -10,9 +10,11 @@ extends CharacterBody3D
 
 
 var _camera_input_direction := Vector2.ZERO
+var _last_movement_direction := Vector3.BACK
 
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
+@onready var _skin: Node3D = %axiaSkin
 
 
 #left click to allow mouse camera, esc to exit it
@@ -45,3 +47,11 @@ func _physics_process(delta: float) -> void:
 	var move_direction := forward * raw_input.y + right * raw_input.x
 	move_direction.y = 0.0
 	move_direction = move_direction.normalized()
+	
+	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
+	move_and_slide()
+	
+	if move_direction.length() > 0.2:
+		_last_movement_direction = move_direction
+	var target_angle := Vector3.BACK.signed_angle_to(_last_movement_direction, Vector3.UP)
+	_skin.global_rotation.y = target_angle
