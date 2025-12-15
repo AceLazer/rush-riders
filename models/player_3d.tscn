@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyjcrljjr0tcv"]
+
+[ext_resource type="PackedScene" uid="uid://cnygpebovmiob" path="res://models/texturedRiggedAxia.fbx" id="1_5wjm4"]
+[ext_resource type="Script" uid="uid://byqbkxqdyafit" path="res://models/player_3d.gd" id="1_ca1jw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3swsy"]
+radius = 0.20410156
+height = 0.96313477
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ca1jw"]
+
+[node name="Player3D" type="CharacterBody3D"]
+script = ExtResource("1_ca1jw")
+
+[node name="axiaSkin" parent="." instance=ExtResource("1_5wjm4")]
+transform = Transform3D(-0.225, 0, 1.9670125e-08, 0, 0.225, 0, -1.9670125e-08, 0, -0.225, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44780296, 0)
+shape = SubResource("CapsuleShape3D_3swsy")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9820642, 0.18854699, 0, -0.18854699, 0.9820642, 0, 0.8074133, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+shape = SubResource("SphereShape3D_ca1jw")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
