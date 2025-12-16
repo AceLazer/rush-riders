@@ -1,10 +1,5 @@
 extends CharacterBody3D
 
-#states
-enum State { GROUNDED, AIRBORNE, WALLRUN, GRIND }
-var current_state := State.GROUNDED
-
-
 
 #lookin
 @export_group("Camera")
@@ -27,15 +22,7 @@ var current_state := State.GROUNDED
 @export var boost_acceleration := 30.0 #how quick it hits boost speed
 @export var boost_fov_increase := 10.0 #fov change amount
 
-#wallrunnin
-@export_group("Wallrun")
-@export var wallrun_speed := 10.0 #when wallrunning
-@export var wallrun_dur := 2.0 #how long to wallrun
-@export var wallrun_min_speed := 4.0 # how much speed needed to wallrun
-@export var wall_grav_multi := 0.2 #low grav when running, gravity markiplier
-@export var wall_jump_impulse := 12.0 # how much to jump up from the wall
-@export var wall_jump_away_force := 8.0 # how much to push from the wall
-@export var wall_detect_distance := 0.6 #how far away do we check walls from
+
 
 
 var _camera_input_direction := Vector2.ZERO
@@ -54,11 +41,6 @@ var _is_boosting := false
 var _base_fov := 75.0 #base fov
 
 
-# Wall running tracking
-var _wall_run_timer := 0.0
-var _wall_normal := Vector3.ZERO # which direction the wall faces
-var _wall_side := 0 # -1 = left wall, 1 = right wall, 0 = no wall
-var _current_camera_tilt := 0.0
 
 
 @onready var _camera_pivot: Node3D = %CameraPivot #the node the camera pivots on
@@ -66,28 +48,12 @@ var _current_camera_tilt := 0.0
 @onready var _skin: Node3D = %capsuleGuy # the model/skin
 
 
-#ray casts for the character
-var _wallray_left: RayCast3D
-var _wallray_right: RayCast3D
 
 func _ready() -> void:
 	_base_fov = _camera.fov
-	_wallcast_setup() #run it at the start/ready for wall run rays
-
-func _wallcast_setup() -> void:
-	# make left wall detection ray
-	_wallray_left = RayCast3D.new()
-	add_child(_wallray_left)
-	_wallray_left.position = Vector3(0, 0.5, 0) # middle of character height
-	_wallray_left.target_position = Vector3(-wall_detect_distance, 0, 0)
-	_wallray_left.enabled = true
 	
-	# make ray, much like the left, but on the right
-	_wallray_right = RayCast3D.new()
-	add_child(_wallray_right)
-	_wallray_right.position = Vector3(0, 0.5, 0)
-	_wallray_right.target_position = Vector3(wall_detect_distance, 0, 0)
-	_wallray_right.enabled = true
+
+
 
 #left click to allow mouse camera, esc to exit it
 func  _input(event: InputEvent) -> void:
