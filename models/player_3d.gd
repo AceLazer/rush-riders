@@ -1,7 +1,15 @@
 extends CharacterBody3D
 
+#states test
+enum State { GROUNDED, AIRBORNE, WALLRUN }
+var current_state := State.GROUNDED
+
+
+
+
 @export_group("Camera")
 @export_range(0.0, 1.0) var mouseSensitivity := 0.1
+@export var tilt_camera := 15.0 # amount that we tilt the camera when wall riding
 
 @export_group("Movement")
 @export var move_speed := 8.0
