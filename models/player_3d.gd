@@ -35,7 +35,7 @@ var _base_fov := 75.0 #base fov
 
 @onready var _camera_pivot: Node3D = %CameraPivot #the node the camera pivots on
 @onready var _camera: Camera3D = %Camera3D #the camera itself
-@onready var _skin: Node3D = %axiaSkin # the model/skin
+@onready var _skin: Node3D = %capsuleGuy # the model/skin
 
 func _ready() -> void:
 	_base_fov = _camera.fov

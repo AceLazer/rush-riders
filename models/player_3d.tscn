@@ -1,23 +1,23 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyjcrljjr0tcv"]
 
-[ext_resource type="PackedScene" uid="uid://cnygpebovmiob" path="res://models/texturedRiggedAxia.fbx" id="1_5wjm4"]
 [ext_resource type="Script" uid="uid://byqbkxqdyafit" path="res://models/player_3d.gd" id="1_ca1jw"]
+[ext_resource type="PackedScene" uid="uid://cmeknxephyw8l" path="res://models/capsuleGuy.glb" id="2_ca1jw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3swsy"]
-radius = 0.20410156
-height = 0.96313477
+radius = 0.26367188
+height = 1.144165
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ca1jw"]
 
 [node name="Player3D" type="CharacterBody3D"]
 script = ExtResource("1_ca1jw")
 
-[node name="axiaSkin" parent="." instance=ExtResource("1_5wjm4")]
+[node name="capsuleGuy" parent="." instance=ExtResource("2_ca1jw")]
 unique_name_in_owner = true
-transform = Transform3D(-0.225, 0, 1.9670125e-08, 0, 0.225, 0, -1.9670125e-08, 0, -0.225, 0, 0, 0)
+transform = Transform3D(0.495, 0, 0, 0, 0.495, 0, 0, 0, 0.495, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44780296, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5383181, 0)
 shape = SubResource("CapsuleShape3D_3swsy")
 
 [node name="CameraPivot" type="Node3D" parent="."]
