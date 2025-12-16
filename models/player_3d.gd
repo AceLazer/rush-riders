@@ -22,7 +22,7 @@ var _gravity := -30.0 # how quick we fall
 
 #more forgiving jumps
 @export var jump_buffer_time := 0.1  # How long to remember a jump press
-@export var coyote_time := 0.1  # How long after leaving ground you can still jump
+@export var coyote_time := 0.2  # How long after leaving ground you can still jump
 
 var _jump_buffer_timer := 0.0
 var _coyote_timer := 0.0
