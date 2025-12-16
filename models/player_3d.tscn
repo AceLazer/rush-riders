@@ -30,3 +30,9 @@ spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
 unique_name_in_owner = true
+
+[node name="rightRay" type="RayCast3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0.6185547, 0)
+
+[node name="leftRay" type="RayCast3D" parent="."]
+transform = Transform3D(1.1924881e-08, -1, 0, 1, 1.1924881e-08, 0, 0, 0, 1, 0, 0.6185547, 0)

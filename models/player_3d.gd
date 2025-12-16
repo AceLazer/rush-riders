@@ -1,5 +1,13 @@
 extends CharacterBody3D
 
+#states
+enum {
+GROUNDED,
+AIRBORNE,
+WALLRUN,
+GRIND
+}
+
 
 #lookin
 @export_group("Camera")
@@ -81,7 +89,7 @@ func _physics_process(delta: float) -> void:
 	
 	_camera_input_direction = Vector2.ZERO
 	
-	#IM HEREEEEEEEEEEEEEE
+	
 	
 	
 	
